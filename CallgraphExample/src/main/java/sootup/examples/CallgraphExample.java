@@ -12,24 +12,21 @@ import sootup.core.signatures.MethodSignature;
 import sootup.core.typehierarchy.ViewTypeHierarchy;
 import sootup.core.types.ClassType;
 import sootup.core.types.VoidType;
-import sootup.java.bytecode.inputlocation.JavaClassPathAnalysisInputLocation;
+import sootup.java.bytecode.frontend.inputlocation.JavaClassPathAnalysisInputLocation;
 import sootup.java.core.JavaIdentifierFactory;
-//import sootup.java.core.JavaProject;
 import sootup.java.core.JavaSootClass;
-import sootup.java.core.language.JavaLanguage;
 import sootup.java.core.views.JavaView;
+import sootup.java.bytecode.frontend.inputlocation.DefaultRuntimeAnalysisInputLocation;
 
 public class CallgraphExample {
 
   public static void main(String[] args) {
     // Create a AnalysisInputLocation, which points to a directory. All class files will be loaded
     // from the directory
+    String cpString = "src/test/resources/Callgraph/binary";
     List<AnalysisInputLocation> inputLocations = new ArrayList<>();
-    inputLocations.add(
-            new JavaClassPathAnalysisInputLocation("src/test/resources/Callgraph/binary"));
-    inputLocations.add(
-            new JavaClassPathAnalysisInputLocation(
-                    System.getProperty("java.home") + "/lib/rt.jar")); // add rt.jar
+    inputLocations.add(new JavaClassPathAnalysisInputLocation(cpString));
+    inputLocations.add(new DefaultRuntimeAnalysisInputLocation());
 
     JavaView view = new JavaView(inputLocations);
 
